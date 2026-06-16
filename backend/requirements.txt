@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+anthropic
+python-dotenv
+pandas
+openpyxl
+plotly
+matplotlib
+kaleido
+pydantic
+pytest
