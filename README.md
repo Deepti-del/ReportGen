@@ -4,6 +4,21 @@ ReportGen is a backend-first prototype for generating intelligent solar performa
 
 The current MVP focuses on a daily solar generation report. It validates an uploaded workbook, maps customer columns, calculates KPIs, runs analyst-approved insight rules, plans answers to customer questions, prepares chart specs, and assembles a report draft JSON for a future frontend.
 
+## Intended Users
+
+ReportGen is intended for teams that repeatedly create operational performance reports from structured data, especially where customers expect report-specific explanations and client-specific thresholds.
+
+Initial target users:
+
+- renewable energy analytics teams
+- solar and wind O&M companies
+- asset managers
+- performance reporting teams
+- energy consultants
+- data analysts who prepare recurring customer reports
+
+The prototype starts with solar daily generation reporting, but the design is intentionally shaped so formulas, thresholds, questions, and report rules can become customer/report-type specific over time.
+
 ## Product Principle
 
 ReportGen is designed around analyst control:
@@ -16,6 +31,15 @@ The product remembers customer preferences.
 ```
 
 KPI values are calculated by deterministic Python/pandas logic, not guessed by AI.
+
+## Key Product Decisions
+
+- Deterministic calculation before AI narration, to prevent AI from inventing or miscalculating KPI values.
+- Analyst approval before automation, because customer-specific formulas and thresholds vary.
+- Database-driven formulas and rules instead of hardcoded logic, so the product can adapt by customer and report type.
+- Chart-ready JSON before frontend design, so the backend can support multiple future report layouts.
+- Draft JSON before PDF export, so analysts can review and edit findings before final delivery.
+- Uploaded files are treated as source inputs, while calculated report data and approved configuration become product memory.
 
 ## Current Backend Flow
 
@@ -46,7 +70,22 @@ flowchart TD
     S --> J["Report Draft JSON"]
 ```
 
-## What Is Built
+## Current MVP Capabilities
+
+The current MVP can:
+
+- accept an uploaded Excel workbook through the API
+- validate daily KPI workbook data
+- confirm and apply customer column mappings
+- calculate KPIs from approved formulas
+- surface pending formula approvals when a KPI is missing
+- store customer/report-specific formulas and insight rules
+- run approved deterministic insight rules
+- store standing customer questions for recurring reports
+- plan which evidence components are needed to answer questions and findings
+- generate chart-ready JSON specs
+- assemble a frontend-ready report draft JSON
+- test the full June 14 event-day flow end to end
 
 ### Core backend modules
 
@@ -230,3 +269,15 @@ The long-term vision is a configurable reporting advisor where analysts define:
 - report templates
 
 The system then calculates, checks, explains, and drafts reports for analyst review.
+
+## What This Demonstrates
+
+This project demonstrates:
+
+- product workflow design for analyst-facing systems
+- deterministic KPI calculation and validation
+- human-in-the-loop AI product thinking
+- backend-first MVP scoping
+- customer-specific product memory
+- test-driven backend development with AI coding assistance
+- a practical path from report quality checking toward intelligent report generation
