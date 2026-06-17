@@ -235,7 +235,8 @@ def test_event_day_end_to_end(monkeypatch, tmp_path):
         f"{draft['status']}, "
         f"{len(draft['triggered_findings'])} findings, "
         f"{len(draft['chart_specs'])} charts, "
-        f"{len(draft['tables'])} tables"
+        f"{len(draft['tables'])} tables, "
+        f"{len(draft['narrative_blocks'])} narrative blocks"
     )
 
     assert validation["valid"] is True
@@ -273,3 +274,8 @@ def test_event_day_end_to_end(monkeypatch, tmp_path):
     assert [table["component_id"] for table in draft["tables"]] == [
         "inverter_pr_table",
     ]
+    assert draft["narrative_blocks"][0]["type"] == "executive_summary"
+    assert any(
+        block["title"] == "Plant-side event"
+        for block in draft["narrative_blocks"]
+    )

@@ -110,6 +110,8 @@ def test_assemble_report_draft_packages_backend_outputs():
     assert draft["answered_questions"][0]["question_text"] == "Did PR meet target?"
     assert draft["chart_specs"][0]["component_id"] == "pr_trend_chart"
     assert draft["tables"][0]["component_id"] == "inverter_pr_table"
+    assert draft["narrative_blocks"][0]["type"] == "executive_summary"
+    assert draft["narrative_blocks"][1]["title"] == "PR drop"
     assert draft["pending_approvals"] == []
 
 
@@ -130,3 +132,4 @@ def test_assemble_report_draft_surfaces_pending_approvals():
 
     assert draft["status"] == "needs_analyst_input"
     assert draft["pending_approvals"][0]["type"] == "needs_formula_approval"
+    assert draft["narrative_blocks"][-1]["type"] == "review_note"

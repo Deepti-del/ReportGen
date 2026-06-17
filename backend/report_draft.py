@@ -2,6 +2,8 @@ from typing import Any
 
 import pandas as pd
 
+from narrator import generate_narrative_blocks
+
 
 REPORT_TYPE = "daily_generation"
 
@@ -120,6 +122,7 @@ def assemble_report_draft(
     insights_result: dict | None = None,
     answer_plan: dict | None = None,
     chart_result: dict | None = None,
+    narrative_result: dict | None = None,
 ) -> dict:
     """
     Assembles frontend-ready draft JSON from deterministic backend outputs.
@@ -144,7 +147,7 @@ def assemble_report_draft(
         chart_result,
     )
 
-    return {
+    draft = {
         "customer_id": customer_id,
         "report_type": report_type,
         "report_date": report_date,
@@ -203,3 +206,15 @@ def assemble_report_draft(
             },
         },
     }
+
+    if narrative_result is None:
+        narrative_result = generate_narrative_blocks(draft)
+
+    draft["narrative_blocks"] = narrative_result.get("narrative_blocks") or []
+    draft["source_summary"]["narrative"] = {
+        "valid": narrative_result.get("valid"),
+        "status": narrative_result.get("status"),
+        "block_count": len(draft["narrative_blocks"]),
+    }
+
+    return draft
