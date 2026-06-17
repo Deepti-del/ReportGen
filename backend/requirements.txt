@@ -9,3 +9,4 @@ matplotlib
 kaleido
 pydantic
 pytest
+python-multipart
