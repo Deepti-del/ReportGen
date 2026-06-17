@@ -31,6 +31,21 @@ Excel workbook
 -> assemble report draft JSON
 ```
 
+```mermaid
+flowchart TD
+    A["Excel Workbook"] --> B["Validator"]
+    B --> C["Mapper"]
+    M["Customer Column Memory"] --> C
+    C --> D["Calculator"]
+    F["Approved Formula Store"] --> D
+    D --> E["Insight Engine"]
+    R["Approved Rule Store"] --> E
+    E --> P["Answer Planner"]
+    Q["Standing Customer Questions"] --> P
+    P --> S["Chart Specs"]
+    S --> J["Report Draft JSON"]
+```
+
 ## What Is Built
 
 ### Core backend modules
