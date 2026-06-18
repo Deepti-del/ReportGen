@@ -70,6 +70,21 @@ flowchart TD
     S --> J["Report Draft JSON"]
 ```
 
+## Product Workflow Mockup
+
+The prototype frontend is planned as a guided analyst workflow rather than a crowded all-in-one dashboard. Each step saves progress, and analysts can return to mapping, formulas, questions, or rules before approving a report draft.
+
+![ReportGen guided workflow mockup](docs/images/reportgen-guided-workflow.png)
+
+The mockup covers:
+
+- selecting or adding a customer and report type
+- uploading data and choosing a report period
+- reviewing validation results
+- approving mappings and KPI formulas
+- managing standing customer questions and insight rules
+- reviewing editable narratives, findings, charts, and tables
+
 ## Current MVP Capabilities
 
 The current MVP can:
@@ -84,6 +99,7 @@ The current MVP can:
 - store standing customer questions for recurring reports
 - plan which evidence components are needed to answer questions and findings
 - generate chart-ready JSON specs
+- generate deterministic, editable narrative blocks without an AI dependency
 - assemble a frontend-ready report draft JSON
 - test the full June 14 event-day flow end to end
 
@@ -98,6 +114,7 @@ The current MVP can:
 - `backend/insights.py` - deterministic insight-rule execution.
 - `backend/answer_planner.py` - decides what evidence is needed to answer standing questions and triggered insights.
 - `backend/charts.py` - creates chart-ready JSON specs.
+- `backend/narrator.py` - creates deterministic, editable narrative blocks from approved report evidence.
 - `backend/report_draft.py` - assembles one frontend-ready report draft object.
 - `backend/models.py` - Pydantic request/response models.
 - `backend/storage.py` - upload file storage using `file_id`.
@@ -197,7 +214,7 @@ PYTHONDONTWRITEBYTECODE=1 pytest -p no:cacheprovider tests
 Current verified status:
 
 ```text
-36 passed, 2 warnings
+38 passed, 2 warnings
 ```
 
 The warnings are expected:
